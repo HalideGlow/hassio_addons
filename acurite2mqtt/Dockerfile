@@ -1,4 +1,4 @@
-ARG BUILD_FROM=hassioaddons/base-amd64:17.0.0
+ARG BUILD_FROM=alpine:3.21.0
 FROM ${BUILD_FROM}
 
 # Define environment variables
