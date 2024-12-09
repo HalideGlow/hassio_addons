@@ -1,5 +1,5 @@
 ARG BUILD_FROM
-FROM $BUILD_FROM
+FROM ${BUILD_FROM}
 
 # Define environment variables
 # Use this variable when creating a container to specify the MQTT broker host.
@@ -20,7 +20,9 @@ ENV MQTT_HOST=127.0.0.1 \
     LANG=C.UTF-8
 
 LABEL Maintainer="Jeffrey Stone" \
-Description="This image is used to start the RTL433 to HASS script that will monitor for 433Mhz devices and send the data to an MQTT server"
+io.hass.name="acurite2mqtt" \
+io.hass.type="addon" \
+io.hass.description="This image is used to start the RTL433 to HASS script that will monitor for 433Mhz devices and send the data to an MQTT server"
 
 WORKDIR /data
 
@@ -28,7 +30,7 @@ WORKDIR /data
 COPY entry.sh rtl_433_mqtt_hass.py /scripts/
 # install rtl_433, rtl-sdr, libusb, mosquitto-clients, python3 py3-paho-mqtt; and deps of rtl_433_mqtt_hass.py.
 # make entry.sh and rtl_433_mqtt_hass.py executable.
-RUN apk add --no-cache rtl-sdr rtl_433 libusb mosquitto-clients python3 py3-paho-mqtt && \
+RUN apk add --no-cache rtl-sdr rtl_433 libusb mosquitto-clients python3 py3-paho-mqtt 
     chmod +x /scripts/entry.sh && \
     chmod +x /scripts/rtl_433_mqtt_hass.py
 
